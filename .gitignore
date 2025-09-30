@@ -22,3 +22,27 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build outputs (ensure build artifacts aren't committed)
+build/
+out/
+
+# Framework outputs
+.next/
+.nuxt/
+
+# Tool caches
+.vite/
+.parcel-cache/
+.turbo/
+.cache/
+.eslintcache
+coverage/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Package manager stores
+.pnpm-store/

@@ -1,3 +1,21 @@
+## Project Setup
+
+- **Node version**: pinned via `.nvmrc`. Use `nvm use`.
+- **Install deps (CI-clean)**: `npm ci`
+- **Start dev server**: `npm run dev`
+- **Build**: `npm run build`
+- **Preview build**: `npm run preview`
+
+If you see odd errors after cloning, do a clean reinstall:
+
+```bash
+rm -rf node_modules dist .vite .parcel-cache .turbo .cache
+npm cache clean --force
+npm ci
+```
+
+If the project requires env variables, copy from `.env.example` to `.env` and fill values.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
