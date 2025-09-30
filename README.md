@@ -1,3 +1,8 @@
+## Group member
+
+- **Nahom Worku**: Cart pages, Home
+- **Blen Gebre**: Product, Product detail, Category, About, Contact
+
 ## Project Setup
 
 - **Node version**: pinned via `.nvmrc`. Use `nvm use`.
@@ -85,6 +90,3 @@ export default defineConfig([
   },
 ])
 ```
-Group Name 
-1.Nahom Worku(Cart pages,home)
-2.Blen Gebre(product,catagory,about,contact)
