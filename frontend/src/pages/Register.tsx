@@ -36,7 +36,7 @@ const Register: React.FC = () => {
       return false;
     }
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long');
+      setError('Password must be at least 8 characters long');
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
@@ -77,7 +77,9 @@ const Register: React.FC = () => {
       }, 1500);
     } catch (err: unknown) {
       const errorMessage = err && typeof err === 'object' && 'response' in err
-        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || 'Registration failed. Please try again.'
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message ||
+          (err as { response?: { data?: { error?: string } } }).response?.data?.error ||
+          'Registration failed. Please try again.'
         : 'Registration failed. Please try again.';
       setError(errorMessage);
     } finally {
@@ -216,9 +218,20 @@ const Register: React.FC = () => {
             </div>
 
             <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-              <p className="mb-2"><strong>Use the login page for demo accounts:</strong></p>
-              <p>• Admin: admin@example.com / admin123</p>
-              <p>• Customer: customer1@example.com / customer123</p>
+              <p className="mb-2"><strong>📋 For testing, use existing demo accounts:</strong></p>
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3">
+                <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Admin Account:</p>
+                <p>• Email: admin@example.com</p>
+                <p>• Password: admin123</p>
+              </div>
+              <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg mb-3">
+                <p className="font-medium text-green-900 dark:text-green-100 mb-1">Customer Account:</p>
+                <p>• Email: customer1@example.com</p>
+                <p>• Password: customer123</p>
+              </div>
+              <p className="mt-3 text-xs text-amber-600 dark:text-amber-400 border-t border-amber-200 dark:border-amber-800 pt-2">
+                � <strong>Database Connection Issue:</strong> Your MongoDB Atlas connection needs to be configured. For now, please use the Login page with demo accounts above to test the full e-commerce functionality.
+              </p>
             </div>
           </div>
         </div>

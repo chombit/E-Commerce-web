@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ApiService from '../services/Apic';
 
-const Login: React.FC = () => {
+const Login = (): JSX.Element => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -46,9 +46,13 @@ const Login: React.FC = () => {
       navigate(from, { replace: true });
     } catch (err: unknown) {
       const errorMessage = err && typeof err === 'object' && 'response' in err
-        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || 'Login failed. Please try again.'
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message ||
+          (err as { response?: { data?: { error?: string } } }).response?.data?.error ||
+          (err as { message?: string }).message ||
+          'Login failed. Please try again.'
         : 'Login failed. Please try again.';
       setError(errorMessage);
+    }
     } finally {
       setLoading(false);
     }
@@ -140,12 +144,21 @@ const Login: React.FC = () => {
             </div>
 
             <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-              <p className="mb-2"><strong>Customer:</strong></p>
-              <p>Email: customer1@example.com</p>
-              <p>Password: customer123</p>
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg mb-3">
+                <p className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">⚠️ Database Update Required</p>
+                <p className="text-xs text-yellow-700 dark:text-yellow-300 mb-2">
+                  Your database name was changed from 'test' to 'e-commerce'. Please run:
+                </p>
+                <code className="block bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs font-mono">
+                  cd backend && npm run seed
+                </code>
+              </div>
+              <p className="mb-2"><strong>After running seed script:</strong></p>
+              <p>• Email: customer1@example.com</p>
+              <p>• Password: customer123</p>
               <p className="mt-2 mb-2"><strong>Admin:</strong></p>
-              <p>Email: admin@example.com</p>
-              <p>Password: admin123</p>
+              <p>• Email: admin@example.com</p>
+              <p>• Password: admin123</p>
             </div>
           </div>
         </div>
